@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    {% load static %}
+    {% include 'includes.html' %}
+  </head>
+  <body>
+    {% include 'attendee/menu.html' %}
+    <div class="container mt-5">
+      <h2>Add Feedback</h2>
+      <form method="post" action="/add_feedback_code/">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label for="eventId" class="form-label">Event ID</label>
+            <input type="text" class="form-control" id="eventId" name="eventId" value="{{eventId}}" required readonly />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label for="feedback" class="form-label">Feedback</label>
+            <textarea class="form-control" id="feedback" name="feedback" required></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <select name="rating" class='form-control'>
+                <option>5</option>
+                <option>4</option>
+                <option>3</option>
+                <option>2</option>
+                <option>1</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

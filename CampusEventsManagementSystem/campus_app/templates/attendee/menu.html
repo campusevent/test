@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+        {% load static %}
+      <a class="navbar-brand" href="#"><img class="rounded-circle" src="{% static 'images/untlogo.png' %}" width="75" height="75" alt="logo not found" ></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/attendee_home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/attendee_profile">Profile</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/attendee_events">Events</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/registered_events">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/show_all_feedbacks_by_userid">Feedbacks</a>
+          </li>
+          
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Events</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/add_event_form">Add New Event</a></li>
+              <li><a class="dropdown-item" href="/show_events">Show Events</a></li>
+              
+            </ul>
+          </li> -->
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+
+          
+
+         
+
+        </ul>
+
+        <form class="d-flex">
+            USER:&nbsp; <span class='text-primary'>{{ user.firstName }}</span> &nbsp; {{ user.lastName }},&nbsp;&nbsp; USER TYPE:&nbsp; <span class='text-danger'>{{user.userType}} </span>
+          </form>
+      </div>
+    </div>
+  </nav>

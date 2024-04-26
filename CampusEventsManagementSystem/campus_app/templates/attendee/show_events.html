@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+ 
+  {% load static %}
+  {% include 'includes.html' %}
+ 
+</head>
+<body>
+    {% include 'attendee/menu.html' %}
+      <div class="container">
+        <h2 class="mt-3 text-secondary">Upcoming events</h2>
+
+        <div class="container mt-5">
+                        
+            {% if messages %}
+              <div class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                  {{ message }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+            
+          </div>
+
+
+        <div class="row mt-2">
+            {% for event in events %}
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <img src="{% static 'uploads/' %}{{ event.eventposter }}" class="card-img-top" style="height:250px" alt="{{ event.eventTitle }}">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ event.eventTitle }}</h5>
+                        <p class="card-text" style="color:#5D6D7E">{{ event.description }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Event Type:</strong> {{ event.eventType }}</li>
+                            <li class="list-group-item"><strong>Event Date/Time:</strong> {{ event.eventDateTime }}</li>
+                            <li class="list-group-item"><strong>Location:</strong> {{ event.eventLocation }}</li>
+                            <li class="list-group-item"><strong>Fee:</strong> {{ event.eventFee }}</li>
+                            <li class="list-group-item"><strong>Total Attendees:</strong> {{ event.totalAttendees }}</li>
+                        </ul>
+                        <div class="text-center">
+                            <A href="" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#registrationModal" data-eventid="{{ event.eventId }}" data-eventfee="{{ event.eventFee }}"><b>Register Event</b></A>
+                        </div>
+                         
+                    </div>
+                </div>
+                
+                    
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+<br>  
+<br>  
+
+
+<!-- Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="exampleModalLabel">Registration for Event <span id="eventIdText"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/make_payment/">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="eventId" class="form-label">Event ID</label>
+                <input type="text" class="form-control" id="eventId" name="eventId" readonly>
+              </div>
+
+              <div class="mb-3">
+                <label for="eventId" class="form-label">Event Fee</label>
+                <input type="text" class="form-control" id="eventFee" name="eventFee" readonly>
+              </div>
+
+            <div class="mb-3">
+              <label for="cardType" class="form-label">Card Type</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="cardType" id="creditCard" value="Credit">
+                <label class="form-check-label" for="creditCard">
+                  Credit
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="cardType" id="debitCard" value="Debit">
+                <label class="form-check-label" for="debitCard">
+                  Debit
+                </label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="cardNumber" class="form-label">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+            </div>
+            <div class="mb-3">
+              <label for="cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control" id="cvv" name="cvv">
+            </div>
+            <div class="mb-3">
+              <label for="expDate" class="form-label">Expiration Date</label>
+              <input type="text" class="form-control" id="expDate" name="expDate">
+            </div>
+            <button type="submit" class="btn btn-primary">Do Payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    // JavaScript to set the value of the eventId input field in the modal
+    var registrationModal = document.getElementById('registrationModal');
+    registrationModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var eventId = button.getAttribute('data-eventid'); // Extract info from data-* attributes
+        var modalTitle = registrationModal.querySelector('.modal-title');
+        var eventIdText = document.getElementById('eventIdText');
+        var eventIdInput = document.getElementById('eventId');
+
+        modalTitle.textContent = 'Registration for Event ' + eventId;
+        eventIdText.textContent = eventId;
+        eventIdInput.value = eventId;
+       
+        
+        var eventFee = button.getAttribute('data-eventfee');
+        var eventFeeInput = document.getElementById('eventFee');
+        eventFeeInput.value = eventFee;
+
+
+    });
+</script>
+</body>  
+</html>  

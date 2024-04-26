@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    {% load static %}
+    {% include 'includes.html' %}
+  </head>
+  <body>
+    {% include 'attendee/menu.html' %}
+    <div class="container mt-5">
+        <h2>Feedbacks</h2>
+        <table class="table table-striped" id="table_id">
+            <thead>
+                <tr>
+                    <th>Feedback ID</th>
+                    <th>Event ID</th>
+                    <th>User ID</th>
+                    <th>Feedback Date</th>
+                    <th>Feedback</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.feedbackId }}</td>
+                    <td>{{ feedback.eventId }}</td>
+                    <td>{{ feedback.userId }}</td>
+                    <td>{{ feedback.feedbackDate }}</td>
+                    <td>{{ feedback.feedback }}</td>
+                    <td>{{ feedback.rating }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+            } );
+        </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+ 
+  {% load static %}
+  {% include 'includes.html' %}
+  <style>
+    body {
+        background: url("{% static 'images/loginback1.gif' %}");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: 100vh; 
+    }
+  </style>
+</head>
+<body>
+    {% include 'menu.html' %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-info">
+                    <h3 class="text-center">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form method='post' action='/validate_user_login/'>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="usertype" class="form-label">User Type</label>
+                            <select class="form-select" id="userType" name="userType">
+                                <option selected disabled>Select User Type</option>
+                                <option>Organizer</option>
+                                <option>Attendee</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+
+                        <div class="text-center mt-1">
+                            New Account? <a href="/user_registration" class="text-info"><b> Register Here!</b></a>
+                        </div>
+                        <div class="text-center mt-1">
+                            Forgot password? <a href="/forgot_password" class="text-info"><b> Reset Here!</b></a>
+                        </div>
+
+                        <div class="container mt-5">
+                        
+                            {% if messages %}
+                              <div class="alert alert-danger" role="alert">
+                                {% for message in messages %}
+                                  {{ message }}
+                                {% endfor %}
+                              </div>
+                            {% endif %}
+                            
+                            
+                          </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+ 
+  {% load static %}
+  {% include 'includes.html' %}
+ 
+</head>
+<body>
+    {% include 'attendee/menu.html' %}
+      <div class="container">
+        <h2 class="mt-3 text-danger">Registered events</h2>
+
+        <div class="container mt-5">
+                        
+            {% if messages %}
+              <div class="alert alert-success" role="alert">
+                {% for message in messages %}
+                  {{ message }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+            
+          </div>
+
+
+        <div class="row mt-2">
+            {% for event in events %}
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <img src="{% static 'uploads/' %}{{ event.eventposter }}" class="card-img-top" style="height:250px" alt="{{ event.eventTitle }}">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ event.eventTitle }}</h5>
+                        <p class="card-text" style="color:#5D6D7E">{{ event.description }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Event Type:</strong> {{ event.eventType }}</li>
+                            <li class="list-group-item"><strong>Event Date/Time:</strong> {{ event.eventDateTime }}</li>
+                            <li class="list-group-item"><strong>Location:</strong> {{ event.eventLocation }}</li>
+                            <li class="list-group-item"><strong>Fee:</strong> {{ event.eventFee }}</li>
+                        </ul>
+                        <A href="/add_feedback/{{event.eventId}}" class='btn btn-primary'>Add Feedback</A>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <A href="/show_feedback_by_userid_eventid/{{event.eventId}}" class='btn btn-warning'>Show Feedbacks</A>
+                    </div>
+                </div>
+                
+                    
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+<br>  
+<br>  
+
+</body>  
+</html>  

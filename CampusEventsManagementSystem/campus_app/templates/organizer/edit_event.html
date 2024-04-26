@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+ 
+  {% load static %}
+  {% include 'includes.html' %}
+ 
+</head>
+<body>
+    {% include 'organizer/menu.html' %}
+
+    <div class="container mt-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header bg-success">
+                        <h3 class="text-center">Edit Event </h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/update_event_code/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <input type="hidden" class="form-control" id="eventId" name="eventId" value="{{ event.eventId }}" required>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="eventType" class="form-label">Event Type</label>
+                                    <input type="text" class="form-control" id="eventType" name="eventType" value="{{ event.eventType }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="eventTitle" class="form-label">Event Title</label>
+                                    <input type="text" class="form-control" id="eventTitle" name="eventTitle" value="{{ event.eventTitle }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required>{{ event.description }}</textarea>
+                                </div>
+                                
+                                <div class="col-sm-6 mb-3">
+                                    <label for="eventDateTime" class="form-label">Event Date and Time</label>
+                                    <input type="datetime-local" class="form-control" id="eventDateTime" name="eventDateTime" value="{{ event.eventDateTime|date:'Y-m-d' }}T{{ event.eventDateTime|time:'H:i' }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="eventLocation" class="form-label">Event Location</label>
+                                    <input type="text" class="form-control" id="eventLocation" name="eventLocation" value="{{ event.eventLocation }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="eventFee" class="form-label">Event Fee</label>
+                                    <input type="number" class="form-control" id="eventFee" name="eventFee" step="0.01" value="{{ event.eventFee }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="totalAttendees" class="form-label">Total Attendees</label>
+                                    <input type="number" class="form-control" id="totalAttendees" name="totalAttendees" value="{{ event.totalAttendees }}" required>
+                                </div>
+                                <div class=" text-center">
+                                    <button type="submit" class="btn btn-primary">Update Event</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="container mt-1">
+                            {% if messages %}
+                                <div class="alert alert-success" role="alert">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

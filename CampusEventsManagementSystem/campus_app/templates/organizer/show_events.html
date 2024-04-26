@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+  {% load static %}
+  {% include 'includes.html' %}
+</head>
+<body>
+    {% include 'organizer/menu.html' %}
+    <br>
+    <div class="container">
+    <a href="/add_event_form" class="btn btn-primary">Add Event</a>
+    <div class="container mt-5">
+        <h2 class="">Events</h2>
+        <div class="table-responsive">
+            <table class="table table-striped" id='table_id'>
+                <thead>
+                    <tr>
+                        <th>Operations</th>
+                        <th>#</th>
+                        <th>Event Type</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Event Poster</th>
+                        <th>Event Date/Time</th>
+                        <th>Location</th>
+                        <th>Fee</th>
+                        <th>Total Attendees</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>  
+                            <a href="/edit_event/{{ event.eventId }}">
+                                <i class="fas fa-edit"></i>
+                            </a>  
+                            &nbsp;
+                            <a href="/delete_event/{{ event.eventId }}">
+                                <i class="fas fa-trash-alt" style="color:red"></i>
+                            </a>
+                             
+                        </td>  
+                        <td>{{ event.eventId }}</td>
+                        <td>{{ event.eventType }}</td>
+                        <td>{{ event.eventTitle }}</td>
+                        <td>{{ event.description }}</td>
+                        <td><img src="{% static 'uploads/' %}{{ event.eventposter }}" alt=""  style="width:80px;height:80px"></td>
+                        <td>{{ event.eventDateTime }}</td>
+                        <td>{{ event.eventLocation }}</td>
+                        <td>{{ event.eventFee }}</td>
+                        <td>{{ event.totalAttendees }}</td>
+                        <td> 
+                            <a class="btn btn-sm btn-info" href="/organizer_event_registrations/{{ event.eventId }}">
+                                Registered Users
+                            </a>  
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>  
+<br>  
+<script>
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+        } );
+    </script>
+</body>  
+</html>  
