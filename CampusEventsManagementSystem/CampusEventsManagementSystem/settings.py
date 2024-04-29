@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'campus_events_db',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root@12345',
         'HOST': 'localhost',
         'PORT': '3306',
     }
